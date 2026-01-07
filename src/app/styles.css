@@ -1,0 +1,344 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Inter:wght@400;600;700&display=swap');
+
+/* ======================================
+   ROOT & COLOR VARIABLES
+   ====================================== */
+:root {
+  --void: #000000;
+  --concrete: #1a1a1a;
+  --steel: #2d2d2d;
+  --ash: #666666;
+  --frost: #e8e8e8;
+  --nebula: #6366f1;
+  --stellar: #818cf8;
+}
+
+/* ======================================
+   BASE STYLES
+   ====================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--void);
+  color: var(--frost);
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--void);
+  color: var(--frost);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ======================================
+   TYPOGRAPHY
+   ====================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  letter-spacing: 0.02em;
+}
+
+.terminal-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* ======================================
+   ANIMATIONS
+   ====================================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideScan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes borderPulse {
+  0%, 100% {
+    border-color: #2d2d2d;
+    box-shadow: inset 0 0 0 1px #2d2d2d;
+  }
+  50% {
+    border-color: #6366f1;
+    box-shadow: inset 0 0 0 1px #6366f1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 0 rgba(99, 102, 241, 0);
+  }
+  50% {
+    text-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Page entrance */
+body {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* ======================================
+   SELECTION & SCROLLBAR
+   ====================================== */
+::selection {
+  background-color: var(--nebula);
+  color: var(--void);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--concrete);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--steel);
+  border-radius: 0;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ash);
+}
+
+/* ======================================
+   CARD COMPONENT
+   ====================================== */
+.card {
+  border: 1px solid var(--steel);
+  background-color: rgba(26, 26, 26, 0.8);
+  backdrop-filter: blur(4px);
+  color: var(--frost);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.card:hover {
+  border-color: var(--nebula);
+  box-shadow: inset 0 0 12px rgba(99, 102, 241, 0.15), 0 0 16px rgba(99, 102, 241, 0.1);
+}
+
+.card:hover::before {
+  left: 100%;
+}
+
+/* ======================================
+   STATUS BADGES
+   ====================================== */
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+}
+
+.status-scheduled {
+  color: var(--nebula);
+  border-color: var(--nebula);
+}
+
+.status-in-flight {
+  color: var(--stellar);
+  border-color: var(--stellar);
+  animation: glow 2s ease-in-out infinite;
+}
+
+.status-completed {
+  color: var(--frost);
+  border-color: var(--frost);
+}
+
+.status-failed {
+  color: #ef4444;
+  border-color: #ef4444;
+}
+
+/* ======================================
+   ACCENT LINES
+   ====================================== */
+.accent-line {
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.accent-line::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--nebula), transparent);
+}
+
+/* ======================================
+   HOVER EFFECTS
+   ====================================== */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+a, button {
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* ======================================
+   SKELETON LOADER
+   ====================================== */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--steel) 0%,
+    var(--ash) 50%,
+    var(--steel) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ======================================
+   GRID ANIMATIONS
+   ====================================== */
+.grid-item {
+  animation: fadeIn 0.5s ease-out backwards;
+}
+
+.grid-item:nth-child(1) { animation-delay: 0.1s; }
+.grid-item:nth-child(2) { animation-delay: 0.2s; }
+.grid-item:nth-child(3) { animation-delay: 0.3s; }
+.grid-item:nth-child(4) { animation-delay: 0.4s; }
+.grid-item:nth-child(5) { animation-delay: 0.5s; }
+.grid-item:nth-child(6) { animation-delay: 0.6s; }
+
+/* ======================================
+   BORDERS & SPACING
+   ====================================== */
+.border-solid {
+  border-style: solid;
+}
+
+.border-thick {
+  border-width: 2px;
+}
+
+/* ======================================
+   RESPONSIVE UTILITIES
+   ====================================== */
+@media (max-width: 768px) {
+  body {
+    font-size: 13px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.25rem;
+  }
+}
+
+/* ======================================
+   UTILITIES
+   ====================================== */
+.opacity-70 {
+  opacity: 0.7;
+}
+
+.opacity-80 {
+  opacity: 0.8;
+}
+
+.text-shadow-glow {
+  text-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+.duration-300 {
+  animation-duration: 0.3s;
+}
