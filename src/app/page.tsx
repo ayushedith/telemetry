@@ -45,72 +45,139 @@ export default function Home() {
     <div style={{ backgroundColor: '#000000', color: '#e8e8e8' }} className='min-h-screen font-mono'>
       <Header />
 
-      <main className='max-w-7xl mx-auto px-4 py-4 md:px-4 md:py-4'>
+      <main className='max-w-7xl mx-auto px-4 py-8 md:px-6 md:py-12'>
         {/* NEXT LAUNCH BEACON */}
         {nextLaunch && (
-          <section className='mb-4'>
-            <h2 style={{ color: '#6366f1' }} className='text-lg font-bold mb-2 uppercase tracking-wider'>
-              ▶ NEXT IGNITION
-            </h2>
-            <div style={{ borderColor: '#6366f1' }} className='animate-pulse border-l-2 pl-4'>
+          <section className='mb-12'>
+            <div className='accent-line mb-6'>
+              <h2 style={{ color: '#6366f1' }} className='text-lg md:text-xl font-bold uppercase tracking-widest terminal-text'>
+                ▶ NEXT IGNITION
+              </h2>
+            </div>
+            <div 
+              style={{ 
+                borderColor: '#6366f1',
+                borderLeft: '3px solid #6366f1',
+                paddingLeft: '24px',
+                animation: 'borderPulse 3s ease-in-out infinite'
+              }}
+              className='hover-lift'
+            >
               <LaunchCard {...nextLaunch} />
             </div>
           </section>
         )}
 
-        {/* LAUNCH QUEUE */}
+        {/* SCHEDULED MISSIONS SECTION */}
         <section>
-          <div className='flex justify-between items-center mb-2'>
-            <h2 style={{ color: '#818cf8' }} className='text-lg font-bold uppercase tracking-wider'>
-              ▶ SCHEDULED MISSIONS
-            </h2>
-            <span style={{ color: '#666666' }} className='text-xs'>
-              {loading ? 'LOADING...' : `${launches.length} RECORDS`}
+          <div className='flex flex-col md:flex-row md:justify-between md:items-center mb-8 gap-4'>
+            <div className='accent-line'>
+              <h2 style={{ color: '#818cf8' }} className='text-lg md:text-xl font-bold uppercase tracking-widest terminal-text'>
+                ▶ SCHEDULED MISSIONS
+              </h2>
+            </div>
+            <span 
+              style={{ color: '#666666', borderColor: '#2d2d2d' }} 
+              className='text-xs uppercase tracking-widest font-mono px-4 py-2 border border-solid'
+            >
+              {loading ? '⟳ LOADING...' : `◆ ${launches.length} RECORDS`}
             </span>
           </div>
 
+          {/* Error state */}
           {error && (
-            <div style={{ borderColor: '#ef4444', backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#f87171' }} className='border p-4 text-sm font-mono mb-4'>
-              ERROR: {error}
+            <div 
+              style={{ 
+                borderColor: '#ef4444', 
+                backgroundColor: 'rgba(239, 68, 68, 0.08)',
+                color: '#f87171'
+              }} 
+              className='border border-solid p-6 text-sm font-mono mb-8 animate-pulse'
+            >
+              <span style={{ color: '#ef4444' }}>▌ ERROR:</span> {error}
             </div>
           )}
 
+          {/* Loading skeleton */}
           {loading && (
-            <div className='flex gap-2'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8'>
               {[1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  style={{ borderColor: '#2d2d2d', backgroundColor: '#1a1a1a' }}
-                  className='flex-1 h-40 border animate-pulse'
+                  className='skeleton'
+                  style={{ 
+                    borderColor: '#2d2d2d',
+                    height: '200px',
+                    border: '1px solid #2d2d2d'
+                  }}
                 />
               ))}
             </div>
           )}
 
+          {/* Launches grid */}
           {!loading && launches.length > 0 && (
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
               {launches.map((launch) => (
                 <LaunchCard key={launch.id} {...launch} />
               ))}
             </div>
           )}
 
+          {/* Empty state */}
           {!loading && launches.length === 0 && !error && (
-            <div style={{ borderColor: '#666666', color: '#666666' }} className='border border-dashed p-4 text-center'>
-              NO LAUNCHES IN QUEUE
+            <div 
+              style={{ 
+                borderColor: '#2d2d2d', 
+                color: '#666666',
+                borderStyle: 'dashed'
+              }} 
+              className='border border-solid p-8 text-center'
+            >
+              <p className='text-sm uppercase tracking-widest font-mono opacity-70'>
+                ◆ NO LAUNCHES IN QUEUE
+              </p>
+              <p className='text-xs mt-2' style={{ color: '#666666' }}>
+                Awaiting orbital data updates...
+              </p>
             </div>
           )}
         </section>
 
         {/* FOOTER */}
-        <footer style={{ borderColor: '#2d2d2d', color: '#666666' }} className='mt-12 pt-4 border-t text-xs'>
-          <p className='mb-1 font-mono'>
-            &gt; TELEMETRY • SPACE LAUNCH TRACKING • STATUS: ONLINE
-          </p>
-          <p className='text-[10px]'>
-            Data aggregated from NASA, SpaceX, ISRO, Roscosmos, and RocketLaunch.Live APIs
-          </p>
-          <p className='text-[10px] mt-1'>Physics is hard. We do not control the rockets.</p>
+        <footer 
+          style={{ borderColor: '#2d2d2d', color: '#666666' }} 
+          className='mt-16 pt-8 border-t border-solid'
+        >
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-8 mb-8'>
+            <div>
+              <p className='text-xs uppercase tracking-widest mb-3 font-mono' style={{ color: '#6366f1' }}>
+                ▌ SYSTEM STATUS
+              </p>
+              <p className='text-xs font-mono opacity-70'>
+                &gt; TELEMETRY • SPACE LAUNCH TRACKING<br />
+                &gt; STATUS: ONLINE • LATENCY: LOW
+              </p>
+            </div>
+            <div>
+              <p className='text-xs uppercase tracking-widest mb-3 font-mono' style={{ color: '#818cf8' }}>
+                ▌ DATA SOURCES
+              </p>
+              <p className='text-xs font-mono opacity-70'>
+                NASA • SpaceX • ISRO • Roscosmos<br />
+                RocketLaunch.Live API Aggregation
+              </p>
+            </div>
+          </div>
+          
+          <div style={{ borderColor: '#2d2d2d' }} className='border-t border-solid pt-6 text-xs font-mono'>
+            <p className='mb-1' style={{ color: '#6366f1' }}>
+              &gt; Physics is hard. We do not control the rockets.
+            </p>
+            <p style={{ color: '#666666' }} className='text-[10px]'>
+              TELEMETRY v1.0 • Built with Next.js, React, TypeScript • Running on Vercel
+            </p>
+          </div>
         </footer>
       </main>
     </div>

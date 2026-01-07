@@ -21,6 +21,7 @@
 html {
   background: var(--void);
   color: var(--frost);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -31,38 +32,81 @@ body {
   line-height: 1.6;
 }
 
-/* Monospace utility */
 .font-mono {
   font-family: 'JetBrains Mono', monospace;
   letter-spacing: 0.02em;
 }
 
-/* Subtle animations */
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
+/* Smooth animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
-  50% {
-    opacity: 0.7;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@keyframes scan {
+@keyframes slideScan {
   0% {
     transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
   }
   100% {
     transform: translateY(100%);
+    opacity: 0;
   }
 }
 
-/* Selection color */
+@keyframes borderPulse {
+  0%, 100% {
+    border-color: #2d2d2d;
+    box-shadow: inset 0 0 0 1px #2d2d2d;
+  }
+  50% {
+    border-color: #6366f1;
+    box-shadow: inset 0 0 0 1px #6366f1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 0 rgba(99, 102, 241, 0);
+  }
+  50% {
+    text-shadow: 0 0 8px rgba(99, 102, 241, 0.3);
+  }
+}
+
+/* Base elements */
+body {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Selection styling */
 ::selection {
   background-color: var(--nebula);
   color: var(--void);
 }
 
+/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -75,8 +119,163 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--steel);
   border-radius: 0;
+  transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--ash);
+}
+
+/* Cards with smooth transitions */
+.card {
+  border: 1px solid var(--steel);
+  background-color: var(--concrete);
+  color: var(--frost);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.card:hover {
+  border-color: var(--nebula);
+  box-shadow: inset 0 0 12px rgba(99, 102, 241, 0.15), 0 0 16px rgba(99, 102, 241, 0.1);
+}
+
+.card:hover::before {
+  left: 100%;
+}
+
+/* Smooth transitions */
+a, button {
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+/* Loading skeleton */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--steel) 0%,
+    var(--ash) 50%,
+    var(--steel) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Terminal text effect */
+.terminal-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* Brutalist borders */
+.border-solid {
+  border-style: solid;
+}
+
+.border-thick {
+  border-width: 2px;
+}
+
+/* Accent line */
+.accent-line {
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.accent-line::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--nebula), transparent);
+}
+
+/* Status badge */
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+}
+
+.status-scheduled {
+  color: var(--nebula);
+  border-color: var(--nebula);
+}
+
+.status-in-flight {
+  color: var(--stellar);
+  border-color: var(--stellar);
+  animation: glow 2s ease-in-out infinite;
+}
+
+.status-completed {
+  color: var(--frost);
+  border-color: var(--frost);
+}
+
+.status-failed {
+  color: #ef4444;
+  border-color: #ef4444;
+}
+
+/* Grid animation */
+.grid-item {
+  animation: fadeIn 0.5s ease-out backwards;
+}
+
+.grid-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.grid-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.grid-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.grid-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.grid-item:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.grid-item:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+/* Smooth hover effects */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
 }
