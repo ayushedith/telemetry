@@ -50,18 +50,17 @@ export default function Home() {
         {nextLaunch && (
           <section className='mb-12'>
             <div className='accent-line mb-6'>
-              <h2 style={{ color: '#6366f1' }} className='text-lg md:text-xl font-bold uppercase tracking-widest terminal-text'>
+              <h2 style={{ color: '#6366f1' }} className='text-lg md:text-xl font-bold uppercase tracking-widest'>
                 ▶ NEXT IGNITION
               </h2>
             </div>
             <div 
+              className='hover-lift'
               style={{ 
                 borderColor: '#6366f1',
                 borderLeft: '3px solid #6366f1',
                 paddingLeft: '24px',
-                animation: 'borderPulse 3s ease-in-out infinite'
               }}
-              className='hover-lift'
             >
               <LaunchCard {...nextLaunch} />
             </div>
@@ -72,13 +71,13 @@ export default function Home() {
         <section>
           <div className='flex flex-col md:flex-row md:justify-between md:items-center mb-8 gap-4'>
             <div className='accent-line'>
-              <h2 style={{ color: '#818cf8' }} className='text-lg md:text-xl font-bold uppercase tracking-widest terminal-text'>
+              <h2 style={{ color: '#818cf8' }} className='text-lg md:text-xl font-bold uppercase tracking-widest'>
                 ▶ SCHEDULED MISSIONS
               </h2>
             </div>
             <span 
               style={{ color: '#666666', borderColor: '#2d2d2d' }} 
-              className='text-xs uppercase tracking-widest font-mono px-4 py-2 border border-solid'
+              className='text-xs uppercase tracking-widest font-mono px-4 py-2 border'
             >
               {loading ? '⟳ LOADING...' : `◆ ${launches.length} RECORDS`}
             </span>
@@ -92,7 +91,7 @@ export default function Home() {
                 backgroundColor: 'rgba(239, 68, 68, 0.08)',
                 color: '#f87171'
               }} 
-              className='border border-solid p-6 text-sm font-mono mb-8 animate-pulse'
+              className='border p-6 text-sm font-mono mb-8 animate-pulse'
             >
               <span style={{ color: '#ef4444' }}>▌ ERROR:</span> {error}
             </div>
@@ -132,7 +131,7 @@ export default function Home() {
                 color: '#666666',
                 borderStyle: 'dashed'
               }} 
-              className='border border-solid p-8 text-center'
+              className='border p-8 text-center'
             >
               <p className='text-sm uppercase tracking-widest font-mono opacity-70'>
                 ◆ NO LAUNCHES IN QUEUE
@@ -147,7 +146,7 @@ export default function Home() {
         {/* FOOTER */}
         <footer 
           style={{ borderColor: '#2d2d2d', color: '#666666' }} 
-          className='mt-16 pt-8 border-t border-solid'
+          className='mt-16 pt-8 border-t'
         >
           <div className='grid grid-cols-1 md:grid-cols-2 gap-8 mb-8'>
             <div>
@@ -170,7 +169,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div style={{ borderColor: '#2d2d2d' }} className='border-t border-solid pt-6 text-xs font-mono'>
+          <div style={{ borderColor: '#2d2d2d' }} className='border-t pt-6 text-xs font-mono'>
             <p className='mb-1' style={{ color: '#6366f1' }}>
               &gt; Physics is hard. We do not control the rockets.
             </p>
