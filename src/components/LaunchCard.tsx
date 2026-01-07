@@ -18,10 +18,10 @@ export default function LaunchCard({
   status,
 }: LaunchCardProps) {
   const statusColor = {
-    scheduled: 'text-nebula',
-    'in-flight': 'text-stellar',
-    completed: 'text-frost',
-    failed: 'text-red-500',
+    scheduled: '#6366f1',
+    'in-flight': '#818cf8',
+    completed: '#e8e8e8',
+    failed: '#ef4444',
   }
 
   const formatDate = (dateString: string) => {
@@ -37,31 +37,31 @@ export default function LaunchCard({
   }
 
   return (
-    <div className='border border-steel bg-concrete p-orbit font-mono text-frost hover:border-nebula transition-colors duration-200'>
-      <div className='flex justify-between items-start mb-pulse'>
+    <div style={{ borderColor: '#2d2d2d', backgroundColor: '#1a1a1a', color: '#e8e8e8' }} className='border p-4 font-mono hover:border-blue-500 transition-colors duration-200'>
+      <div className='flex justify-between items-start mb-2'>
         <div>
-          <h3 className='text-lg font-bold text-frost'>{name}</h3>
-          <p className='text-ash text-sm'>{rocket}</p>
+          <h3 className='text-lg font-bold'>{name}</h3>
+          <p style={{ color: '#666666' }} className='text-sm'>{rocket}</p>
         </div>
-        <span className={`text-xs font-bold uppercase ${statusColor[status]}`}>
+        <span style={{ color: statusColor[status] }} className='text-xs font-bold uppercase'>
           {status}
         </span>
       </div>
 
-      <div className='grid grid-cols-2 gap-orbit mb-pulse text-sm'>
+      <div className='grid grid-cols-2 gap-4 mb-2 text-sm'>
         <div>
-          <p className='text-ash text-xs uppercase'>Agency</p>
-          <p className='text-frost'>{agency}</p>
+          <p style={{ color: '#666666' }} className='text-xs uppercase'>Agency</p>
+          <p>{agency}</p>
         </div>
         <div>
-          <p className='text-ash text-xs uppercase'>Location</p>
-          <p className='text-frost'>{location}</p>
+          <p style={{ color: '#666666' }} className='text-xs uppercase'>Location</p>
+          <p>{location}</p>
         </div>
       </div>
 
       <div>
-        <p className='text-ash text-xs uppercase'>Launch Window</p>
-        <p className='text-nebula font-mono'>{formatDate(launchDate)} UTC</p>
+        <p style={{ color: '#666666' }} className='text-xs uppercase'>Launch Window</p>
+        <p style={{ color: '#6366f1' }} className='font-mono'>{formatDate(launchDate)} UTC</p>
       </div>
     </div>
   )

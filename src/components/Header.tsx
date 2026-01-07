@@ -2,19 +2,19 @@
 
 export default function Header() {
   return (
-    <header className='border-b border-steel bg-void2 py-orbit px-orbit'>
+    <header style={{ borderColor: '#2d2d2d', backgroundColor: '#0f0f0f', color: '#e8e8e8' }} className='border-b py-4 px-4'>
       <div className='max-w-7xl mx-auto'>
-        <div className='flex justify-between items-center mb-pulse'>
+        <div className='flex justify-between items-center mb-2'>
           <div>
-            <h1 className='text-3xl font-bold text-frost font-mono'>TELEMETRY</h1>
-            <p className='text-ash text-sm mt-signal font-mono'>&gt; SPACE LAUNCH TRACKING</p>
+            <h1 className='text-3xl font-bold font-mono'>TELEMETRY</h1>
+            <p style={{ color: '#666666' }} className='text-sm mt-1 font-mono'>&gt; SPACE LAUNCH TRACKING</p>
           </div>
           <div className='text-right text-xs font-mono'>
-            <p className='text-nebula'>STATUS: [ONLINE]</p>
-            <p className='text-stellar'>LATENCY: [LOW]</p>
+            <p style={{ color: '#6366f1' }}>STATUS: [ONLINE]</p>
+            <p style={{ color: '#818cf8' }}>LATENCY: [LOW]</p>
           </div>
         </div>
-        <p className='text-ash text-xs uppercase tracking-wider'>
+        <p style={{ color: '#666666' }} className='text-xs uppercase tracking-wider'>
           // HUMANITY'S ATTEMPT TO LEAVE THE PLANET
         </p>
       </div>
